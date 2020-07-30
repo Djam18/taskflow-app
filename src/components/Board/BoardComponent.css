@@ -1,0 +1,68 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.board-header {
+  padding: 8px 0 16px;
+}
+
+.board-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #172b4d;
+}
+
+.board-columns {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  flex: 1;
+}
+
+.add-column-btn {
+  background: rgba(9, 30, 66, 0.08);
+  border: none;
+  border-radius: 6px;
+  color: #172b4d;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 14px;
+  min-width: 272px;
+  text-align: left;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.add-column-btn:hover {
+  background: rgba(9, 30, 66, 0.14);
+}
+
+.add-column-form {
+  background: #ebecf0;
+  border-radius: 6px;
+  padding: 8px;
+  width: 272px;
+  min-width: 272px;
+}
+
+.add-column-input {
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  outline: none;
+  margin-bottom: 6px;
+}
+
+.add-column-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
