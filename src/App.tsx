@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { DropResult } from 'react-beautiful-dnd';
 import { Board, Card } from './types';
 import BoardComponent from './components/Board/BoardComponent';
 import './App.css';
@@ -73,6 +74,53 @@ function App() {
   const [board, setBoard] = useState<Board>(INITIAL_BOARD);
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
+  const handleDragEnd = (result: DropResult) => {
+    const { destination, source, draggableId, type } = result;
+
+    if (!destination) return;
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+
+    if (type === 'column') {
+      const newColumnIds = [...board.columnIds];
+      newColumnIds.splice(source.index, 1);
+      newColumnIds.splice(destination.index, 0, draggableId);
+      setBoard(prev => ({ ...prev, columnIds: newColumnIds }));
+      return;
+    }
+
+    // Moving cards
+    const sourceColumn = board.columns[source.droppableId];
+    const destColumn = board.columns[destination.droppableId];
+
+    if (sourceColumn.id === destColumn.id) {
+      // Same column reorder
+      const newCardIds = [...sourceColumn.cardIds];
+      newCardIds.splice(source.index, 1);
+      newCardIds.splice(destination.index, 0, draggableId);
+      setBoard(prev => ({
+        ...prev,
+        columns: {
+          ...prev.columns,
+          [sourceColumn.id]: { ...sourceColumn, cardIds: newCardIds },
+        },
+      }));
+    } else {
+      // Move between columns
+      const sourceCardIds = [...sourceColumn.cardIds];
+      sourceCardIds.splice(source.index, 1);
+      const destCardIds = [...destColumn.cardIds];
+      destCardIds.splice(destination.index, 0, draggableId);
+      setBoard(prev => ({
+        ...prev,
+        columns: {
+          ...prev.columns,
+          [sourceColumn.id]: { ...sourceColumn, cardIds: sourceCardIds },
+          [destColumn.id]: { ...destColumn, cardIds: destCardIds },
+        },
+      }));
+    }
+  };
+
   const handleAddCard = (columnId: string, title: string) => {
     const cardId = `card-${Date.now()}`;
     const column = board.columns[columnId];
@@ -131,6 +179,7 @@ function App() {
           onCardClick={setSelectedCard}
           onAddCard={handleAddCard}
           onAddColumn={handleAddColumn}
+          onDragEnd={handleDragEnd}
         />
         {selectedCard && (
           <div className="modal-overlay" onClick={() => setSelectedCard(null)}>
