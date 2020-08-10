@@ -1,0 +1,153 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f2f5;
+  padding: 20px;
+}
+
+.auth-card {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.auth-logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0052cc;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.auth-title {
+  font-size: 16px;
+  color: #5e6c84;
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
+.auth-error {
+  background: #ffebe6;
+  border: 1px solid #de350b;
+  border-radius: 4px;
+  color: #de350b;
+  font-size: 13px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #172b4d;
+}
+
+.form-group input {
+  border: 1px solid #dfe1e6;
+  border-radius: 4px;
+  color: #172b4d;
+  font-size: 14px;
+  outline: none;
+  padding: 10px 12px;
+  transition: border-color 0.15s;
+}
+
+.form-group input:focus {
+  border-color: #0052cc;
+  box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.2);
+}
+
+.btn-auth-primary {
+  background: #0052cc;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 4px;
+  padding: 12px;
+  transition: background 0.15s;
+  width: 100%;
+}
+
+.btn-auth-primary:hover:not(:disabled) {
+  background: #0065ff;
+}
+
+.btn-auth-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.auth-divider {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #dfe1e6;
+}
+
+.auth-divider span {
+  color: #8993a4;
+  font-size: 12px;
+}
+
+.btn-google {
+  background: white;
+  border: 1px solid #dfe1e6;
+  border-radius: 4px;
+  color: #172b4d;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  transition: background 0.15s;
+  width: 100%;
+}
+
+.btn-google:hover {
+  background: #f8f9fa;
+}
+
+.auth-switch {
+  color: #5e6c84;
+  font-size: 13px;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #0052cc;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0;
+  text-decoration: underline;
+}

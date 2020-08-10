@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
 import { Board, Card } from './types';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import BoardComponent from './components/Board/BoardComponent';
+import LoginPage from './components/Auth/LoginPage';
 import './App.css';
 
 const INITIAL_BOARD: Board = {
@@ -12,24 +14,9 @@ const INITIAL_BOARD: Board = {
   memberIds: ['user-1'],
   columnIds: ['col-1', 'col-2', 'col-3'],
   columns: {
-    'col-1': {
-      id: 'col-1',
-      title: 'To Do',
-      cardIds: ['card-1', 'card-2'],
-      order: 0,
-    },
-    'col-2': {
-      id: 'col-2',
-      title: 'In Progress',
-      cardIds: ['card-3'],
-      order: 1,
-    },
-    'col-3': {
-      id: 'col-3',
-      title: 'Done',
-      cardIds: [],
-      order: 2,
-    },
+    'col-1': { id: 'col-1', title: 'To Do', cardIds: ['card-1', 'card-2'], order: 0 },
+    'col-2': { id: 'col-2', title: 'In Progress', cardIds: ['card-3'], order: 1 },
+    'col-3': { id: 'col-3', title: 'Done', cardIds: [], order: 2 },
   },
   cards: {
     'card-1': {
@@ -70,13 +57,17 @@ const INITIAL_BOARD: Board = {
   updatedAt: Date.now(),
 };
 
-function App() {
+function AppContent() {
+  const { currentUser, logout } = useAuth();
   const [board, setBoard] = useState<Board>(INITIAL_BOARD);
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
+  if (!currentUser) {
+    return <LoginPage />;
+  }
+
   const handleDragEnd = (result: DropResult) => {
     const { destination, source, draggableId, type } = result;
-
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
@@ -88,24 +79,18 @@ function App() {
       return;
     }
 
-    // Moving cards
     const sourceColumn = board.columns[source.droppableId];
     const destColumn = board.columns[destination.droppableId];
 
     if (sourceColumn.id === destColumn.id) {
-      // Same column reorder
       const newCardIds = [...sourceColumn.cardIds];
       newCardIds.splice(source.index, 1);
       newCardIds.splice(destination.index, 0, draggableId);
       setBoard(prev => ({
         ...prev,
-        columns: {
-          ...prev.columns,
-          [sourceColumn.id]: { ...sourceColumn, cardIds: newCardIds },
-        },
+        columns: { ...prev.columns, [sourceColumn.id]: { ...sourceColumn, cardIds: newCardIds } },
       }));
     } else {
-      // Move between columns
       const sourceCardIds = [...sourceColumn.cardIds];
       sourceCardIds.splice(source.index, 1);
       const destCardIds = [...destColumn.cardIds];
@@ -123,7 +108,6 @@ function App() {
 
   const handleAddCard = (columnId: string, title: string) => {
     const cardId = `card-${Date.now()}`;
-    const column = board.columns[columnId];
     const newCard: Card = {
       id: cardId,
       title,
@@ -133,7 +117,7 @@ function App() {
       assigneeId: null,
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      order: column.cardIds.length,
+      order: board.columns[columnId].cardIds.length,
     };
     setBoard(prev => ({
       ...prev,
@@ -144,10 +128,7 @@ function App() {
           cardIds: [...prev.columns[columnId].cardIds, cardId],
         },
       },
-      cards: {
-        ...prev.cards,
-        [cardId]: newCard,
-      },
+      cards: { ...prev.cards, [cardId]: newCard },
     }));
   };
 
@@ -158,12 +139,7 @@ function App() {
       columnIds: [...prev.columnIds, columnId],
       columns: {
         ...prev.columns,
-        [columnId]: {
-          id: columnId,
-          title,
-          cardIds: [],
-          order: prev.columnIds.length,
-        },
+        [columnId]: { id: columnId, title, cardIds: [], order: prev.columnIds.length },
       },
     }));
   };
@@ -172,6 +148,12 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>TaskFlow</h1>
+        <div className="app-header-right">
+          <span className="user-name">{currentUser.displayName}</span>
+          <button className="btn-logout" onClick={logout}>
+            Sign out
+          </button>
+        </div>
       </header>
       <main className="app-main">
         <BoardComponent
@@ -194,6 +176,14 @@ function App() {
         )}
       </main>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
