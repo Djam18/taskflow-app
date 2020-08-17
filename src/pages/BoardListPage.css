@@ -1,0 +1,98 @@
+.boards-page {
+  padding: 24px;
+}
+
+.boards-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.boards-header h2 {
+  color: #172b4d;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.boards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.board-card {
+  background: #0052cc;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  min-height: 100px;
+  padding: 16px;
+  text-align: left;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.board-card:hover {
+  background: #0065ff;
+  box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+}
+
+.board-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.board-card p {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.boards-empty {
+  color: #5e6c84;
+  font-size: 14px;
+  grid-column: 1 / -1;
+  padding: 40px;
+  text-align: center;
+}
+
+.boards-loading {
+  color: #5e6c84;
+  font-size: 14px;
+  padding: 40px;
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  color: #172b4d;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group input {
+  border: 1px solid #dfe1e6;
+  border-radius: 4px;
+  color: #172b4d;
+  font-size: 14px;
+  outline: none;
+  padding: 10px 12px;
+}
+
+.form-group input:focus {
+  border-color: #0052cc;
+  box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
