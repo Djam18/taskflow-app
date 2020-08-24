@@ -1,0 +1,17 @@
+.sync-indicator {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.sync-indicator.syncing {
+  background: rgba(255, 139, 0, 0.15);
+  color: #ff8b00;
+}
+
+.sync-indicator.synced {
+  background: rgba(54, 179, 126, 0.15);
+  color: #36b37e;
+}
