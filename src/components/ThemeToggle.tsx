@@ -1,4 +1,4 @@
-import React from 'react';
+// React 17 new JSX transform — no React import needed for JSX
 import { useTheme } from '../context/ThemeContext';
 import './ThemeToggle.css';
 
