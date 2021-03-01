@@ -1,0 +1,48 @@
+.install-banner {
+  align-items: center;
+  background: #172b4d;
+  bottom: 0;
+  color: white;
+  display: flex;
+  font-size: 14px;
+  gap: 16px;
+  justify-content: center;
+  left: 0;
+  padding: 12px 20px;
+  position: fixed;
+  right: 0;
+  z-index: 500;
+}
+
+.install-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-install {
+  background: #0052cc;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+}
+
+.btn-install:hover {
+  background: #0065ff;
+}
+
+.btn-text-dark {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 6px 10px;
+}
+
+.btn-text-dark:hover {
+  color: white;
+}
