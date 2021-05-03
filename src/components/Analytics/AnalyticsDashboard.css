@@ -1,0 +1,96 @@
+.analytics-overlay {
+  padding: 20px;
+}
+
+.analytics-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  width: 100%;
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.analytics-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.analytics-header h2 {
+  color: #172b4d;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.analytics-close {
+  background: none;
+  border: none;
+  color: #5e6c84;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  padding: 4px 8px;
+}
+
+.analytics-close:hover {
+  color: #172b4d;
+}
+
+.kpi-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 24px;
+}
+
+.kpi-card {
+  background: #f4f5f7;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  text-align: center;
+}
+
+.kpi-value {
+  color: #0052cc;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.kpi-label {
+  color: #5e6c84;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.charts-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.chart-card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.chart-card h3 {
+  color: #172b4d;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 600px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .charts-grid { grid-template-columns: 1fr; }
+}
