@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
 import { Board, Card } from './types';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -61,6 +61,8 @@ function AppContent() {
   const { currentUser, logout } = useAuth();
   const [board, setBoard] = useState<Board>(INITIAL_BOARD);
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+  const [, startTransition] = useTransition();
+  // React 18: wrap heavy drag updates in startTransition so UI stays responsive
 
   if (!currentUser) {
     return <LoginPage />;
@@ -75,7 +77,10 @@ function AppContent() {
       const newColumnIds = [...board.columnIds];
       newColumnIds.splice(source.index, 1);
       newColumnIds.splice(destination.index, 0, draggableId);
-      setBoard(prev => ({ ...prev, columnIds: newColumnIds }));
+      // React 18: column reorder is non-urgent — wrap in transition
+      startTransition(() => {
+        setBoard(prev => ({ ...prev, columnIds: newColumnIds }));
+      });
       return;
     }
 
@@ -86,23 +91,27 @@ function AppContent() {
       const newCardIds = [...sourceColumn.cardIds];
       newCardIds.splice(source.index, 1);
       newCardIds.splice(destination.index, 0, draggableId);
-      setBoard(prev => ({
-        ...prev,
-        columns: { ...prev.columns, [sourceColumn.id]: { ...sourceColumn, cardIds: newCardIds } },
-      }));
+      startTransition(() => {
+        setBoard(prev => ({
+          ...prev,
+          columns: { ...prev.columns, [sourceColumn.id]: { ...sourceColumn, cardIds: newCardIds } },
+        }));
+      });
     } else {
       const sourceCardIds = [...sourceColumn.cardIds];
       sourceCardIds.splice(source.index, 1);
       const destCardIds = [...destColumn.cardIds];
       destCardIds.splice(destination.index, 0, draggableId);
-      setBoard(prev => ({
-        ...prev,
-        columns: {
-          ...prev.columns,
-          [sourceColumn.id]: { ...sourceColumn, cardIds: sourceCardIds },
-          [destColumn.id]: { ...destColumn, cardIds: destCardIds },
-        },
-      }));
+      startTransition(() => {
+        setBoard(prev => ({
+          ...prev,
+          columns: {
+            ...prev.columns,
+            [sourceColumn.id]: { ...sourceColumn, cardIds: sourceCardIds },
+            [destColumn.id]: { ...destColumn, cardIds: destCardIds },
+          },
+        }));
+      });
     }
   };
 
