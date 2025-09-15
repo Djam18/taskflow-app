@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@tanstack/react-query": "^5.56.0",
+    "@tanstack/react-query-devtools": "^5.56.0",
     "firebase": "^8.10.1",
     "react": "^19.0.0",
     "react-beautiful-dnd": "^13.1.0",
